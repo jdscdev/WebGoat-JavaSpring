@@ -1,5 +1,8 @@
 package com.mvcwebapp.webgoat.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -65,5 +68,12 @@ public class ResttController {
   @GetMapping(value = "/restxss/tn5/{tnParam5}")
   public String methodTN5(@PathVariable(value="tnParam5") Integer tnParam5) {
     return tnParam5.toString();
+  }
+  @RequestMapping(value = "/restxss/tn6/{tnParam6}", method = RequestMethod.GET)
+  // @ResponseBody - Map is sanitized
+  public Map<String, String> methodTP7(@PathVariable(value="tnParam6") String tnParam6) {
+    Map<String, String> map = new HashMap<>();
+    map.put("id", tnParam6);
+		return map;
   }
 }
