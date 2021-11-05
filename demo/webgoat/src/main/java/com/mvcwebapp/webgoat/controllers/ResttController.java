@@ -5,7 +5,8 @@ import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+// import javax.ws.rs.core.MediaType;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class ResttController {
   public String methodTP2(@PathVariable(value="tpParam2") String tpParam2) {
 		return tpParam2;
   }
-  @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @Consumes({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @GetMapping(value = "/restxss/tp3/{tpParam3}")
   public String methodTP3(@PathVariable(value="tpParam3") String tpParam3) {
 		return tpParam3;
@@ -56,7 +57,7 @@ public class ResttController {
   public String methodTN2(@PathVariable(value="tnParam2") String tnParam2) {
     return tnParam2;
   }
-  @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
+  @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @GetMapping(value = "/restxss/tn3/{tnParam3}")
   public String methodTN3(@PathVariable(value="tnParam3") String tnParam3) {
 		return tnParam3;
@@ -75,5 +76,9 @@ public class ResttController {
     Map<String, String> map = new HashMap<>();
     map.put("id", tnParam6);
 		return map;
+  }
+  @GetMapping(value = "/restxss/tn7/{tnParam7}", produces = MediaType.TEXT_PLAIN_VALUE)
+  public @ResponseBody String methodTN7(@PathVariable(value="tnParam7") String tnParam7) {
+		return tnParam7;
   }
 }
