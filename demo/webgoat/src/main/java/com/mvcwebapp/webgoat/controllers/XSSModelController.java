@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-    
+
 @Controller
 public class XSSModelController {
   // TPs XSS
@@ -24,7 +24,7 @@ public class XSSModelController {
     model.mergeAttributes(map);
 		return "index";
   }
-  @RequestMapping(value = "/xssmodel/tp/")
+  @RequestMapping(value = "/xssmodel/tp1/")
   public String methodTP1(@RequestBody Model model) {
 		return "index";
   }

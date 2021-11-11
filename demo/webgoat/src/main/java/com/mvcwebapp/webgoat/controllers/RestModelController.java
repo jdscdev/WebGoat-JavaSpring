@@ -2,8 +2,14 @@ package com.mvcwebapp.webgoat.controllers;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.ws.rs.Produces;
+
 import com.mvcwebapp.webgoat.models.ClassTest;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,11 +50,12 @@ public class RestModelController {
   public String methodTP5(@RequestBody String tpParam5) {
 		return tpParam5;
   }
-  // @Consumes({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-  // @GetMapping(value = "/restxssmodel/tp6/{tpParam6}")
-  // public String methodTN3(@PathVariable(value="tpParam6") String tpParam6, Model model) {
-	// 	return tpParam6;
-  // }
+
+	@GetMapping(value = "/restxssmodel/tp6/{tpParam6}", produces = "text/html")
+	@ResponseBody
+	public Object methodTP6(@PathVariable(value="tpParam6") String tpParam6) {
+		return ResponseEntity.status(HttpStatus.OK).body(tpParam6);
+	}
 
   // TNs XSS
   @RequestMapping(value = "/restxssmodel/tn/{tnParam}")
@@ -62,12 +69,24 @@ public class RestModelController {
   public Model methodTN2(@RequestBody Model model) {
 		return model;
   }
-  // @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-  // @GetMapping(value = "/restxssmodel/tn5/{tnParam5}")
-  // public Model methodTN5(String tnParam5) {
-  //  model.addAttribute("tnParam", "TN - " + tnParam5);
-  //  return model;
-  // }
+
+  @GetMapping(value = "/restxssmodel/tn3/{tnParam3}", produces = "text/html")
+	@ResponseBody
+	public Object methodTN3(@PathVariable(value="tnParam3") String tnParam3) {
+		ClassTest ct = new ClassTest();
+		ct.setName(tnParam3);
+		return ct;
+	}
+	
+	@Produces(MediaType.TEXT_HTML_VALUE)
+	@GetMapping(value = "/restxssmodel/tn4/{tnParam4}")
+	@ResponseBody
+	public Object methodTN4(@PathVariable(value="tnParam4") String tnParam4) {
+		ClassTest ct = new ClassTest();
+		ct.setName(tnParam4);
+		return ct;
+	}
+  
   @RequestMapping(value = "/restxssmodel/tn6/{tnParam6}")
   @ResponseBody
   public Map<String, Object> methodTN6(@PathVariable(value="tnParam6") String tnParam6) {
@@ -76,7 +95,7 @@ public class RestModelController {
 		return map;
   }
   @RequestMapping(value = "/restxssmodel/tn7/{tnParam7}", produces = "application/json")
-  public ClassTest methodTN3(@PathVariable(value="tnParam7") String tnParam7) {
+  public ClassTest methodTN7(@PathVariable(value="tnParam7") String tnParam7) {
     ClassTest map = new ClassTest();
     map.setName(tnParam7);
 		return map;

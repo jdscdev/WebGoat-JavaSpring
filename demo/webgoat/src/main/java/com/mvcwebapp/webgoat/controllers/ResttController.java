@@ -40,11 +40,16 @@ public class ResttController {
 		return tpParam5;
   }
   @RequestMapping(value = "/restxss/tp6/{tpParam6}")
-	public String methodTN8(@PathVariable(value="tpParam6") String tpParam6) {
+	public String methodTP6(@PathVariable(value="tpParam6") String tpParam6) {
 		return methodPrivate(tpParam6);
   }
 	private String methodPrivate(String paramTN) {
 		return paramTN;
+  }
+  @Produces("text/plain")
+  @GetMapping(value = "/restxss/tp7/{tpParam7}")
+  public String methodTP7(@PathVariable(value="tpParam7") String tpParam7) {
+		return tpParam7;
   }
 
   // NOT Vulnerable XSS Methods
@@ -72,7 +77,7 @@ public class ResttController {
   }
   @RequestMapping(value = "/restxss/tn6/{tnParam6}", method = RequestMethod.GET)
   // @ResponseBody - Map is sanitized
-  public Map<String, String> methodTP7(@PathVariable(value="tnParam6") String tnParam6) {
+  public Map<String, String> methodTN6(@PathVariable(value="tnParam6") String tnParam6) {
     Map<String, String> map = new HashMap<>();
     map.put("id", tnParam6);
 		return map;
