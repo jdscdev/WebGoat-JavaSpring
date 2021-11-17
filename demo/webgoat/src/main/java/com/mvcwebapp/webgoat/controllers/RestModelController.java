@@ -35,7 +35,7 @@ public class RestModelController {
 		return map.toString();
   }
   @RequestMapping(value = "/restxssmodel/tp3/{tpParam3}")
-  public String methodTP3(@PathVariable(value="tpParam3") String tpParam3) {
+  public Object methodTP3(@PathVariable(value="tpParam3") String tpParam3) {
     ClassTest ct = new ClassTest();
     ct.setName(tpParam3);
 		return ct.getName();

@@ -6,7 +6,7 @@
 </head>
 <body>
     <p>${greeting}</p>
-    <p>${tpParam}</p>
+    <p>${JSON.toJSONString(tpParam)}</p>
     <p>${tnParam}</p>
 </body>
 </html>

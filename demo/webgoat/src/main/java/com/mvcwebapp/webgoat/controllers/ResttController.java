@@ -1,18 +1,29 @@
 package com.mvcwebapp.webgoat.controllers;
 
+import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.Produces;
-// import javax.ws.rs.core.MediaType;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
+import com.alibaba.fastjson.JSON;
+import net.minidev.json.JSONObject;
 
 @RestController
 public class ResttController {
@@ -27,7 +38,7 @@ public class ResttController {
   }
   @Consumes({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @GetMapping(value = "/restxss/tp3/{tpParam3}")
-  public String methodTP3(@PathVariable(value="tpParam3") String tpParam3) {
+  public Object methodTP3(@PathVariable(value="tpParam3") String tpParam3) {
 		return tpParam3;
   }
   @RequestMapping(value = "/restxss/tp4/{tpParam4}", method = RequestMethod.GET)
@@ -51,7 +62,6 @@ public class ResttController {
   public String methodTP7(@PathVariable(value="tpParam7") String tpParam7) {
 		return tpParam7;
   }
-
   // NOT Vulnerable XSS Methods
 	@GetMapping(value = "/restxss/tn/{tnParam}", produces = "application/json")
   public String methodTN(@PathVariable(value="tnParam") String tnParam) {
@@ -64,7 +74,7 @@ public class ResttController {
   }
   @Produces({MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
   @GetMapping(value = "/restxss/tn3/{tnParam3}")
-  public String methodTN3(@PathVariable(value="tnParam3") String tnParam3) {
+  public Object methodTN3(@PathVariable(value="tnParam3") String tnParam3) {
 		return tnParam3;
   }
   @GetMapping(value = "/restxss/tn4/{tnParam4}", produces = "application/octet-stream")
@@ -85,5 +95,39 @@ public class ResttController {
   @GetMapping(value = "/restxss/tn7/{tnParam7}", produces = MediaType.TEXT_PLAIN_VALUE)
   public @ResponseBody String methodTN7(@PathVariable(value="tnParam7") String tnParam7) {
 		return tnParam7;
+  }
+  @RequestMapping(value="/restxss/tn8/{tnParam8}")
+  @ResponseBody
+  protected void methodTN8(@PathVariable(value="tnParam8") String tnParam8, HttpServletResponse resp) throws Exception{
+      try{
+          JSONObject json = new JSONObject();
+          json.put("tnParam8", tnParam8);
+          PrintWriter out = resp.getWriter();
+          out.write(json.toString());
+          out.flush();
+          out.close();
+      }catch (Exception e){
+          e.printStackTrace();
+          throw new Exception(e.getMessage());
+      }
+  }
+  @RequestMapping(value="/restxss/tn9/{tnParam9}")
+  protected void methodTN9(@PathVariable(value="tnParam9") String tnParam9, HttpServletResponse resp) throws Exception{
+		Gson gson = new Gson();
+		resp.getWriter().append(gson.toJson(tnParam9));
+  }
+  @RequestMapping(value="/restxss/tn10/{tnParam10}")
+  public String methodTN10(@PathVariable("tnParam10") String tnParam10)
+  {
+		return JSON.toJSONString(tnParam10);
+  }
+  @RequestMapping(value="/restxss/tn11/{tnParam11}")
+  protected Object methodTN11(@PathVariable(value="tnParam11") String tnParam11) throws Exception {
+		return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(tnParam11));
+  }
+  @RequestMapping(value="/restxss/tn12/{tnParam12}")
+  protected void methodTN12(@PathVariable(value="tnParam12") String tnParam12, HttpServletResponse resp) throws Exception {
+		JsonElement json = JsonParser.parseString(tnParam12);
+		resp.getWriter().append(json.toString());
   }
 }

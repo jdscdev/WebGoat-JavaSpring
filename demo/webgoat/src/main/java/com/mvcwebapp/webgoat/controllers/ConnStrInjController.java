@@ -75,13 +75,4 @@ public class ConnStrInjController {
     }
     return resObj;
   }
-
-	@GetMapping("/connstrinj/tn/{tnParam}")
-  public String methodTN4(@PathVariable("tnParam4") String tnParam4) {
-    return tnParam4;
-  }
-	@PostMapping("/connstrinj/tn2/{tnParam2}")
-  public String methodTN5(@PathVariable("tnParam2") String tnParam2) {
-    return tnParam2;
-  }
 }

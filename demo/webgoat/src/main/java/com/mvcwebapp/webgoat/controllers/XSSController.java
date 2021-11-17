@@ -1,6 +1,5 @@
 package com.mvcwebapp.webgoat.controllers;
 
-// import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class XSSController {
   // NOT Vulnerable XSS Methods
   @RequestMapping(value = "/xss/tn/{tnParam}", method = RequestMethod.GET)
-  public String methodTP(@RequestBody String tnParam) {
+  public String methodTN(@RequestBody String tnParam) {
 		return tnParam;
   }
 	@GetMapping(value = "/xss/tn2/{tnParam2}", produces = "text/html")
@@ -34,9 +33,12 @@ public class XSSController {
   public String methodTN5(@PathVariable(value="tnParam5") String tnParam5) {
     return tnParam5;
   }
+
+
+
   @ResponseBody
   @RequestMapping(value = "/xss/tn7/{tnParam7}", method = RequestMethod.GET)
-  public String methodTN(@PathVariable(value="tnParam7") String tnParam7) {
+  public String methodTN7(@PathVariable(value="tnParam7") String tnParam7) {
 		return tnParam7;
   }
   @RequestMapping(value = "/xss/tn8/{tnParam8}", method = RequestMethod.GET)
