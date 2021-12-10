@@ -13,7 +13,7 @@ public class ComponentController
     @ResponseBody
     public Object methodTP(@PathVariable("tpParam") String tpParam)
     {
-		return tpParam;
+		  return tpParam;
     }
     // NOT Vulnerable XSS Methods
     @RequestMapping(value = "/tn/{tnParam}")

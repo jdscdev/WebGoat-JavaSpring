@@ -1,5 +1,8 @@
 package com.mvcwebapp.webgoat.controllers;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,8 +37,19 @@ public class XSSController {
     return tnParam5;
   }
 
+	@GetMapping(value = "/xss/tn6/{tnParam6}", produces = "application/json")
+  public String methodTN5(@PathVariable(value="tnParam6") String tnParam6, HttpServletResponse resp) {
+    try{
+      Cookie cookie = new Cookie("hitCounter", tnParam6);
+      resp.addCookie(cookie);
 
-
+      resp.getWriter().write(tnParam6); 
+    }catch (Exception e){
+      e.printStackTrace();
+    }
+    return "index";
+  }
+  
   @ResponseBody
   @RequestMapping(value = "/xss/tn7/{tnParam7}", method = RequestMethod.GET)
   public String methodTN7(@PathVariable(value="tnParam7") String tnParam7) {

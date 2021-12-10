@@ -18,6 +18,6 @@ public class ServiceController
   // NOT Vulnerable XSS Methods
   @RequestMapping(value = "/tn/{tnParam}")
   public Object methodTN(@PathVariable(value="tnParam") String tnParam) {
-    return "index";
+    return tnParam;
   }
 }
